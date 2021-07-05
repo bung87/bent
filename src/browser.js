@@ -31,7 +31,7 @@ class StatusError extends Error {
   }
 }
 
-const mkrequest = (statusCodes, method, encoding, headers, baseurl) => async (_url, body, _headers = {}) => {
+const mkrequest = (statusCodes, method, encoding, headers, baseurl, fetch) => async (_url, body, _headers = {}) => {
   _url = baseurl + (_url || '')
   let parsed = new URL(_url)
 

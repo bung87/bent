@@ -7,7 +7,7 @@ module.exports = mkrequest => (...args) => {
   let encoding
   let headers
   let baseurl = ''
-
+  let _fetch
   args.forEach(arg => {
     if (typeof arg === 'string') {
       if (arg.toUpperCase() === arg) {
@@ -37,7 +37,9 @@ module.exports = mkrequest => (...args) => {
         }
         headers = arg
       }
-    } else {
+    } else if(typeof arg === 'function') {
+      _fetch = arg
+    }else {
       throw new Error(`Unknown type: ${typeof arg}`)
     }
   })
@@ -47,5 +49,5 @@ module.exports = mkrequest => (...args) => {
     statusCodes.add(200)
   }
 
-  return mkrequest(statusCodes, method, encoding, headers, baseurl)
+  return mkrequest(statusCodes, method, encoding, headers, baseurl , _fetch )
 }
