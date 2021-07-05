@@ -2,8 +2,9 @@
 
 const core = require('./core')
 const btoa = require('btoa-lite')
-const Headers = require('fetch-headers')
-
+const Headers = require('fetch-headers') // fetch since 2016, edge 14, IE 11 not support
+const URL = require('url-parse') // since 2015 edge 12, IE 11 not support
+// ArrayBuffer since 2016 edge 14, IE 11 not support
 class StatusError extends Error {
   constructor (res, ...params) {
     super(...params)
@@ -18,6 +19,7 @@ class StatusError extends Error {
     this.res = res
     this.json = res.json.bind(res)
     this.text = res.text.bind(res)
+    this.blob = res.blob.bind(res)
     this.arrayBuffer = res.arrayBuffer.bind(res)
     let buffer
     const get = () => {
@@ -72,6 +74,7 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl, fetch) => as
   if (encoding === 'json') return resp.json()
   else if (encoding === 'buffer') return resp.arrayBuffer()
   else if (encoding === 'string') return resp.text()
+  else if (encoding === 'blob') return resp.blob()
   else return resp
 }
 

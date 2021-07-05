@@ -1,5 +1,5 @@
 'use strict'
-const encodings = new Set(['json', 'buffer', 'string'])
+const encodings = new Set(['json', 'buffer', 'string', 'blob'])
 
 module.exports = mkrequest => (...args) => {
   const statusCodes = new Set()

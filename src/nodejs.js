@@ -55,6 +55,7 @@ class StatusError extends Error {
     this.text = res.text
     this.arrayBuffer = res.arrayBuffer
     this.headers = res.headers
+    this.blob = res.blob
     let buffer
     const get = () => {
       if (!buffer) buffer = this.arrayBuffer()
@@ -142,6 +143,8 @@ const mkrequest = (statusCodes, method, encoding, headers, baseurl) => (_url, bo
           resolve(res.json())
         } else if (encoding === 'string') {
           resolve(res.text())
+        } else if(encoding === 'blob'){
+          resolve(res.blob())
         }
       }
     })
