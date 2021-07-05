@@ -1,6 +1,8 @@
 'use strict'
-/* global fetch, btoa, Headers */
+
 const core = require('./core')
+const btoa = require('btoa-lite')
+const Headers = require('fetch-headers')
 
 class StatusError extends Error {
   constructor (res, ...params) {

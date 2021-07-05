@@ -11,7 +11,7 @@ const test = it
 
 const same = (x, y) => assert.ok(tsame(x, y))
 
-const baseurl = 'https://echo-server.mikeal.now.sh/src'
+const baseurl = 'https://echo-server-mikeal.vercel.app/src'
 const u = path => baseurl + path
 
 const enc = str => (new TextEncoder()).encode(str).buffer

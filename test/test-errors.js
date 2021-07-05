@@ -75,7 +75,7 @@ test('Invalid body', async () => {
 test('Invalid json', async () => {
   const r = bent('GET', 'json')
   try {
-    await r('https://echo-server.mikeal.now.sh/src/echo.js?body=[asdf]')
+    await r('https://echo-server-mikeal.vercel.app/src/echo.js?body=[asdf]')
     throw new Error('Should have failed')
   } catch (e) {
     assert.ok(e.message.startsWith('Unexpected token a in JSON'))
@@ -85,7 +85,7 @@ test('Invalid json', async () => {
 const getError = async () => {
   const r = bent(201)
   try {
-    await r('https://echo-server.mikeal.now.sh/src/echo.js?body="asdf"')
+    await r('https://echo-server-mikeal.vercel.app/src/echo.js?body="asdf"')
     throw new Error('Should have failed')
   } catch (e) {
     ttype(e, 'StatusError')
@@ -104,7 +104,7 @@ if (!process.browser) {
   test('Z_BUF_ERROR error', async () => {
     const request = bent('json')
     try {
-      await request('https://echo-server.mikeal.now.sh/src/echo.js?headers=content-encoding%3Agzip%2Ccontent-type%3Aapplication%2Fjson')
+      await request('https://echo-server-mikeal.vercel.app/src/echo.js?headers=content-encoding%3Agzip%2Ccontent-type%3Aapplication%2Fjson')
     } catch (e) {
       ttype(e, 'Error')
       return e
@@ -115,7 +115,7 @@ if (!process.browser) {
     const base64 = zlib.gzipSync('ok').toString('base64')
     const headers = 'content-encoding:gzip,content-type:application/json'
     try {
-      await request(`https://echo-server.mikeal.now.sh/src/echo.js?${qs.stringify({ base64, headers })}`)
+      await request(`https://echo-server-mikeal.vercel.app/src/echo.js?${qs.stringify({ base64, headers })}`)
     } catch (e) {
       ttype(e, 'SyntaxError')
       return e
